@@ -3,7 +3,7 @@ import cors from "cors";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import authRoutes from "./routes/authRoutes";
-
+import kitRoutes from "./routes/kitRoutes";
 export function createApp(): Express {
   const app = express();
 
@@ -38,7 +38,7 @@ export function createApp(): Express {
   });
 
   app.use("/api/auth", authRoutes);
-  // app.use("/api/kits", kitRoutes); // added in a later step
+  app.use("/api/kits", kitRoutes);
 
   // Error handler must be registered LAST, after all routes
   app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
