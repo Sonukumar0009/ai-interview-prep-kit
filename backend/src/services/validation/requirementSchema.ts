@@ -8,7 +8,12 @@ export const requirementSchema = z.object({
 });
 
 export const requirementsExtractionSchema = z.object({
+  role_title: z.string(),
+  seniority: z.string(),
+  location: z.string(),
+  responsibilities: z.array(z.string()),
   requirements: z.array(requirementSchema),
 });
 
 export type Requirement = z.infer<typeof requirementSchema>;
+export type RequirementsExtraction = z.infer<typeof requirementsExtractionSchema>;
