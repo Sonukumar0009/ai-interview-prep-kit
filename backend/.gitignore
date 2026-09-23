@@ -2,3 +2,4 @@ node_modules/
 dist/
 .env
 full-kit-output.json
+scripts/*.js
