@@ -14,6 +14,7 @@ import {
   regenerateSchedule,
 } from "../controllers/kitEditController";
 import { requireAuth } from "../middleware/requireAuth";
+import { recordConfidence, getPracticeOrder } from "../controllers/practiceController";
 
 const router = Router();
 
@@ -38,5 +39,8 @@ router.patch("/:id/company-brief", patchCompanyBrief);
 router.post("/:id/regenerate/questions/:category", regenerateQuestionCategory);
 router.post("/:id/regenerate/company-brief", regenerateCompanyBrief);
 router.post("/:id/regenerate/schedule", regenerateSchedule);
+
+router.get("/:id/practice", getPracticeOrder);
+router.post("/:id/practice/:flashcardId/confidence", recordConfidence);
 
 export default router;

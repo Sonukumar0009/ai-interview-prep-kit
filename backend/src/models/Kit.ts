@@ -14,6 +14,7 @@ export interface IKit extends Document {
     daysAvailable: number;
   };
   kit: KitData | null;
+  practiceState: Record<string, { confidence: 1 | 2 | 3; lastReviewedAt: string }>;
   researchCache: {
     companyName: string;
     pages: { url: string; title: string; text: string }[];
@@ -40,7 +41,8 @@ const KitSchema = new Schema<IKit>(
       companyUrl: { type: String, required: true },
       daysAvailable: { type: Number, required: true },
     },
-    kit: { type: Schema.Types.Mixed, default: null },
+        kit: { type: Schema.Types.Mixed, default: null },
+    practiceState: { type: Schema.Types.Mixed, default: {} },
     researchCache: { type: Schema.Types.Mixed, default: null },
     warnings: { type: [String], default: [] },
     error: { type: Schema.Types.Mixed, default: null },
