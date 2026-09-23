@@ -7,7 +7,8 @@
   "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
   "build": "tsc",
   "start": "node dist/server.js",
-  "evaluate": "ts-node-dev --transpile-only scripts/evaluate.ts",
+  "evaluate": "ts-node scripts/evaluate.ts",
+  "debugargs": "ts-node scripts/debugArgs.ts",
   "test": "vitest run"
 },
   "keywords": [],

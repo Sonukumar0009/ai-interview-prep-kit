@@ -1,0 +1,20 @@
+[
+  {
+    "id": "case-01",
+    "jd": "Senior Backend Engineer\n\nRequirements:\n- 5+ years of experience with Ruby on Rails\n- Strong PostgreSQL skills\n- Experience mentoring junior engineers\n\nNice to have:\n- Kubernetes experience",
+    "company_url": "https://about.gitlab.com",
+    "days": 5
+  },
+  {
+    "id": "case-02-thin-jd",
+    "jd": "Backend dev needed. Must know JS.",
+    "company_url": "https://about.gitlab.com",
+    "days": 3
+  },
+  {
+    "id": "case-03-bad-url",
+    "jd": "Frontend Engineer with 3+ years React experience required.",
+    "company_url": "https://this-domain-absolutely-does-not-exist-12345.com",
+    "days": 7
+  }
+]
