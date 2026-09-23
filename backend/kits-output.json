@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated_at": "2026-09-23T09:59:03.136Z",
+  "generated_at": "2026-09-23T10:20:26.950Z",
   "kits": [
     {
       "id": "case-01",
@@ -12,7 +12,7 @@
           "role": "Senior Backend Engineer",
           "location": "",
           "jd_chars": 188,
-          "researched_at": "2026-09-23T09:57:25.425Z",
+          "researched_at": "2026-09-23T10:18:56.525Z",
           "pages_used": [
             "https://about.gitlab.com/",
             "https://about.gitlab.com/jobs/",
@@ -20,8 +20,8 @@
           ]
         },
         "company_brief": {
-          "summary": "GitLab provides a single platform that combines source code management, CI/CD, security, and AI‑driven orchestration to help software teams deliver faster with control. The company serves enterprises, startups and a range of industries worldwide.",
-          "what_they_do": "GitLab’s product is an integrated DevOps platform that spans the entire software development lifecycle—from planning and source code management to continuous integration, delivery, security testing, governance, and AI‑powered agentic orchestration. It aims to give teams visibility, measurement, and compliance while enabling modernization across DevOps, security, and AI initiatives, and is used by millions of developers. The platform is overseen by an executive team led by CEO Bill Staples.",
+          "summary": "GitLab provides a single platform that spans the entire software development lifecycle, combining source code management, CI/CD, security, and AI‑driven orchestration. It markets itself as delivering speed with control for “agentic software engineering.” The company serves enterprises, startups and various industries worldwide.",
+          "what_they_do": "GitLab’s product is an integrated DevOps platform that enables teams to plan, code, build, test, secure, and deploy software within one application. Features highlighted on the site include CI/CD pipelines, source code management, agile delivery tools, security and compliance testing, supply‑chain security, and AI‑powered capabilities such as Code Suggestions and the GitLab Duo Agent Platform for intelligent orchestration. The platform is positioned as a modern, cloud‑agnostic solution used by millions of developers across many sectors.",
           "sources": [
             "https://about.gitlab.com/",
             "https://about.gitlab.com/jobs/",
@@ -66,9 +66,10 @@
               "r1"
             ],
             "category": "technical",
-            "prompt": "Describe how you would design and implement a background job processing system in a Rails application to handle email notifications, including your choice of job framework, retry strategy, and ensuring idempotency of the jobs.",
-            "answer_outline": "- Choose a job backend (e.g., Sidekiq, Resque, DelayedJob) and explain why; - Use ActiveJob wrapper for portability; - Define a mailer job class with perform method; - Configure queue, concurrency, and retry limits; - Implement idempotency (e.g., check sent flag or unique job identifier); - Handle failures with dead‑letter queue or error monitoring; - Write tests for job execution and idempotency",
-            "difficulty": 2
+            "prompt": "Describe a complex feature you have built in a Ruby on Rails application. Focus on how you designed the data model, chose associations, and used ActiveRecord patterns (e.g., callbacks, concerns, service objects) to keep the code maintainable and testable.",
+            "answer_outline": "• Identify the business requirement and break it into domain entities\n• Design models with appropriate has_many, belongs_to, has_one, and through associations\n• Explain use of validations and database constraints\n• Discuss where callbacks were appropriate vs. service objects or concerns\n• Show how you organized reusable logic (concerns, modules)\n• Mention testing strategy (unit, integration) and performance considerations (indexes, eager loading)",
+            "difficulty": 2,
+            "state": "generated"
           },
           {
             "id": "q1-2",
@@ -76,9 +77,10 @@
               "r1"
             ],
             "category": "technical",
-            "prompt": "Explain the differences between eager loading, lazy loading, and counter caching in Rails, and provide concrete examples of when each technique should be used to optimize database queries in a high‑traffic application.",
-            "answer_outline": "- Define eager loading (includes/preload) and how it prevents N+1 queries; - Define lazy loading (default association loading) and when it’s acceptable; - Define counter cache column and its impact on read performance; - Example: eager load comments with posts on a dashboard; - Example: lazy load rarely accessed association to avoid unnecessary joins; - Example: use counter cache for likes count to avoid COUNT queries; - Discuss trade‑offs (memory, query complexity) and monitoring tools",
-            "difficulty": 3
+            "prompt": "How would you detect and fix an N+1 query problem in a Rails codebase? Include the tools you would use to find it and the code changes you might apply.",
+            "answer_outline": "• Explain what N+1 queries are and why they hurt performance\n• Describe tools: Rails log, bullet gem, rack‑mini‑profiler, ActiveRecord::Explain\n• Show how to reproduce the issue in console or tests\n• Provide code fixes: use includes/eager_load/preload, select specific columns, add counter caches, refactor to batch queries\n• Verify improvement with query count and response time metrics",
+            "difficulty": 3,
+            "state": "generated"
           },
           {
             "id": "q2-1",
@@ -86,9 +88,10 @@
               "r2"
             ],
             "category": "technical",
-            "prompt": "You notice a query in production taking significantly longer than expected. Walk through the process you would use to diagnose the performance issue and the typical optimizations you might apply in PostgreSQL.",
-            "answer_outline": "- Run EXPLAIN (ANALYZE) to view execution plan; - Identify sequential scans, missing indexes, join order; - Check statistics freshness (ANALYZE) and bloat (VACUUM); - Adjust indexes (add, drop, covering) or rewrite query; - Tune configuration parameters (work_mem, effective_cache_size, random_page_cost); - Monitor I/O and lock contention; - Verify plan stability with prepared statements",
-            "difficulty": 2
+            "prompt": "Explain how you would design a PostgreSQL schema for a multi‑tenant SaaS application, ensuring data isolation and efficient queries.",
+            "answer_outline": "Choose isolation strategy (separate schemas vs shared tables with tenant_id); Apply row‑level security if shared; Design indexes on tenant_id and frequent query columns; Consider partitioning or sharding for large tenants; Plan migrations and backup strategy; Discuss connection pooling and security implications.",
+            "difficulty": 3,
+            "state": "generated"
           },
           {
             "id": "q2-2",
@@ -96,9 +99,10 @@
               "r2"
             ],
             "category": "technical",
-            "prompt": "Compare physical streaming replication with logical replication in PostgreSQL. When would you choose each approach, and what are the key steps and considerations for setting them up, including failover handling?",
-            "answer_outline": "- Physical replication copies WAL at block level, requires identical cluster, used for HA/disaster recovery; - Logical replication copies changes at table/row level, allows selective tables, version upgrades, heterogeneous schemas; - Setup physical: set wal_level=replica, configure max_wal_senders, create replication slot, configure primary_conninfo on standby, start streaming; - Setup logical: set wal_level=logical, create publication on primary, create subscription on replica, manage slot; - Failover: promote standby for physical; handle subscription restart for logical, consider data consistency, conflict resolution, monitoring; - Choose physical for low‑latency hot standby, logical for partial replication or cross‑version migrations",
-            "difficulty": 3
+            "prompt": "Describe a recent performance issue you encountered in PostgreSQL and the steps you took to diagnose and resolve it.",
+            "answer_outline": "Identify symptom (slow query, high CPU); Use pg_stat_activity and pg_stat_statements; Run EXPLAIN ANALYZE on problematic query; Spot missing indexes or suboptimal joins; Apply index or rewrite query; Check vacuum/analyze stats; Tune configuration parameters (work_mem, effective_cache_size); Verify improvement with metrics.",
+            "difficulty": 2,
+            "state": "generated"
           },
           {
             "id": "q3-1",
@@ -106,9 +110,10 @@
               "r3"
             ],
             "category": "behavioural",
-            "prompt": "Tell me about a time you mentored a junior engineer to overcome a challenging technical problem. What steps did you take and what was the outcome?",
-            "answer_outline": "- Brief context of the problem and the junior's experience level\n- Specific mentoring techniques used (e.g., pair programming, code reviews, goal setting)\n- How you guided the engineer through debugging/solution design\n- Measurable result for the project and the junior's growth\n- Reflection on what you learned about effective mentorship",
-            "difficulty": 2
+            "prompt": "Tell me about a time when you mentored a junior engineer to help them overcome a technical challenge. How did you approach it and what was the result?",
+            "answer_outline": "- Situation: junior faced a specific technical problem\n- Task: your responsibility to guide them\n- Action: regular check‑ins, code reviews, pair programming, resources, feedback\n- Result: problem solved, skill growth, impact on project\n- Reflection: what you learned about mentoring",
+            "difficulty": 2,
+            "state": "generated"
           },
           {
             "id": "q3-2",
@@ -116,9 +121,10 @@
               "r3"
             ],
             "category": "behavioural",
-            "prompt": "Describe a situation where you had to balance mentoring junior engineers with tight project deadlines. How did you ensure both mentorship and delivery goals were met?",
-            "answer_outline": "- Situation and deadline pressures\n- Prioritization framework applied (e.g., impact vs effort)\n- Structured mentorship approach (scheduled check‑ins, documentation, delegating tasks)\n- Actions taken to keep the project on track while supporting the junior\n- Outcome for the project and the mentee, and key takeaways",
-            "difficulty": 3
+            "prompt": "Describe a time you created or improved a mentorship program or process for junior engineers on your team. What steps did you take and how did you measure success?",
+            "answer_outline": "- Identify need/gap in junior support\n- Design program: pairing, curriculum, milestones, documentation\n- Implementation: rollout, training, feedback loops\n- Metrics: onboarding speed, code quality, retention, junior confidence\n- Outcome: measurable improvements and lessons learned",
+            "difficulty": 3,
+            "state": "generated"
           },
           {
             "id": "q4-1",
@@ -126,9 +132,10 @@
               "r4"
             ],
             "category": "technical",
-            "prompt": "Describe how you would design a highly available, zero‑downtime deployment strategy for a stateful application on Kubernetes. Include considerations for storage, rolling updates, and failover.",
-            "answer_outline": "- Use StatefulSets with ordered pod management\n- Attach PersistentVolumeClaims backed by a reliable storage class (e.g., CSI with replication)\n- Configure RollingUpdate strategy with partition or OnDelete for controlled rollouts\n- Define PodDisruptionBudget to maintain quorum\n- Leverage anti‑affinity and multi‑zone node pools for resilience\n- Implement readiness/liveness probes and graceful termination\n- Plan for backup/restore (snapshots) and failover procedures",
-            "difficulty": 3
+            "prompt": "Design a highly‑available Kubernetes deployment for a stateful service. Include storage strategy, scaling, and fail‑over mechanisms you would use.",
+            "answer_outline": "- Use a StatefulSet for ordered pod identity and stable network IDs\n- Attach PersistentVolumeClaims with a dynamic StorageClass (e.g., CSI driver) that supports multi‑zone replication\n- Deploy across multiple nodes/availability zones with pod anti‑affinity to avoid single‑node failure\n- Configure readiness/liveness probes and a graceful termination period\n- Enable Horizontal Pod Autoscaler (or custom metrics) for scaling read/write load\n- Implement leader election inside the app or use a sidecar for fail‑over\n- Ensure etcd backups and cluster node monitoring for control‑plane resilience",
+            "difficulty": 3,
+            "state": "generated"
           },
           {
             "id": "q4-2",
@@ -136,43 +143,48 @@
               "r4"
             ],
             "category": "technical",
-            "prompt": "Explain the steps you would take to troubleshoot a pod that is stuck in CrashLoopBackOff in a Kubernetes cluster. Which kubectl commands and cluster‑level checks would you use, and how would you pinpoint the root cause?",
-            "answer_outline": "- kubectl describe pod to view events and status\n- kubectl logs (and -p for previous) to see container output\n- Check exit code and signal in pod status\n- Verify liveness/readiness probe definitions\n- Inspect resource limits/requests for OOM kills\n- Ensure image pull secrets and registry access are correct\n- Examine node conditions and kubelet logs if needed\n- Use kubectl exec into a healthy replica for environment comparison\n- Review recent changes (configmaps, secrets, deployments) that might affect the pod",
-            "difficulty": 2
+            "prompt": "A pod in your cluster is repeatedly entering CrashLoopBackOff. Walk through the steps and kubectl commands you would use to diagnose and resolve the issue.",
+            "answer_outline": "- kubectl get pod <name> -o wide to see status and node placement\n- kubectl describe pod <name> to view events, reasons, and resource limits\n- kubectl logs <name> (and -p for previous instance) to capture container output\n- Check init‑container logs if present\n- Verify image pull policy, secret access, and config maps\n- Examine liveness/readiness probe definitions for false failures\n- Review resource requests/limits for OOM kills\n- Use kubectl exec to inspect the container filesystem if needed\n- Apply fixes (e.g., adjust probes, increase resources, correct config) and redeploy",
+            "difficulty": 2,
+            "state": "generated"
           }
         ],
         "flashcards": [
           {
             "id": "f1",
-            "front": "What level of Ruby on Rails experience is typically required?",
-            "back": "At least 5 years of professional experience with Ruby on Rails.",
+            "front": "How many years of Ruby on Rails experience is required?",
+            "back": "At least five years of professional development using Ruby on Rails.",
             "requirement_ids": [
               "r1"
-            ]
+            ],
+            "state": "generated"
           },
           {
             "id": "f2",
-            "front": "What core abilities demonstrate strong PostgreSQL skills?",
-            "back": "Proficiency in writing efficient SQL queries, designing normalized schemas, creating and using indexes, performance tuning with EXPLAIN, managing transactions and ACID properties, handling backup/restore, replication, partitioning, and leveraging extensions like PostGIS.",
+            "front": "What core topics showcase strong PostgreSQL skills?",
+            "back": "Proficiency in schema design, indexing, query planning and optimization, transaction isolation levels, and advanced features such as CTEs, window functions, and extensions like PostGIS.",
             "requirement_ids": [
               "r2"
-            ]
+            ],
+            "state": "generated"
           },
           {
             "id": "f3",
             "front": "Can you give an example of how you mentored a junior engineer?",
-            "back": "Describe the situation, the guidance you offered (e.g., code reviews, pair programming, goal setting), and the outcome such as the junior’s skill improvement or project success.",
+            "back": "Describe the situation, the specific guidance you offered (e.g., code reviews, pair‑programming, goal setting), and the outcome such as improved performance or skill development.",
             "requirement_ids": [
               "r3"
-            ]
+            ],
+            "state": "generated"
           },
           {
             "id": "f4",
-            "front": "What core concepts should you discuss to demonstrate Kubernetes experience?",
-            "back": "Describe the architecture (master/worker nodes, API server, etcd, controller manager, scheduler), key objects (Pods, Deployments, Services, ConfigMaps), and common tasks (deployment, scaling, rolling updates, monitoring, troubleshooting).",
+            "front": "What core Kubernetes concepts should you be able to discuss in an interview?",
+            "back": "Pods (the smallest deployable unit), Deployments (manage pod replicas and updates), Services (stable networking), ConfigMaps/Secrets (configuration), and the control‑plane components (API server, scheduler, controller manager).",
             "requirement_ids": [
               "r4"
-            ]
+            ],
+            "state": "generated"
           }
         ],
         "schedule": {
@@ -183,7 +195,7 @@
               "focus": "Technical deep dive",
               "question_ids": [
                 "q1-2",
-                "q2-2"
+                "q2-1"
               ],
               "minutes": 80
             },
@@ -200,7 +212,7 @@
               "day": 3,
               "focus": "Mixed: Technical deep dive + more",
               "question_ids": [
-                "q2-1",
+                "q2-2",
                 "q3-1"
               ],
               "minutes": 50
@@ -240,7 +252,7 @@
           "role": "Backend Developer",
           "location": "",
           "jd_chars": 33,
-          "researched_at": "2026-09-23T09:58:09.772Z",
+          "researched_at": "2026-09-23T10:19:34.215Z",
           "pages_used": [
             "https://about.gitlab.com/",
             "https://about.gitlab.com/jobs/",
@@ -248,8 +260,8 @@
           ]
         },
         "company_brief": {
-          "summary": "GitLab offers a single, integrated platform that spans the entire software development lifecycle, combining source code management, CI/CD, security, and AI-driven orchestration. The company markets its solution as a way to achieve speed with control for modern engineering teams.",
-          "what_they_do": "GitLab’s product is an end‑to‑end DevOps platform that unifies version control, continuous integration and delivery, agile planning, security testing, compliance, and governance into one application. It also incorporates AI features such as code suggestions and an agentic orchestration layer to automate workflows and improve visibility across the software supply chain. The platform can be used on GitLab.com, on major cloud providers, or self‑hosted, enabling organizations of any size to develop, test, and ship software faster while maintaining control and compliance.",
+          "summary": "GitLab is a single platform that provides speed with control across the entire software development lifecycle. It offers tools for source code management, CI/CD, security, governance, and AI‑driven orchestration, serving millions of users worldwide.",
+          "what_they_do": "GitLab’s platform combines execution and workflow capabilities—including continuous integration and delivery, source code management, agile delivery, and security testing—into one integrated solution. It also incorporates AI features such as code suggestions and an agentic orchestration layer, enabling teams to modernize DevOps, security, and AI practices across enterprises of all sizes. The company emphasizes transparency and governance through its Trust Center and AI Transparency Center, and its executive team includes CEO Bill Staples and CFO Jessica Ross.",
           "sources": [
             "https://about.gitlab.com/",
             "https://about.gitlab.com/jobs/",
@@ -263,7 +275,7 @@
           "requirements": [
             {
               "id": "r1",
-              "text": "Must know JavaScript",
+              "text": "Knowledge of JavaScript",
               "kind": "technical",
               "priority": "must"
             }
@@ -276,9 +288,10 @@
               "r1"
             ],
             "category": "technical",
-            "prompt": "Explain the differences between var, let, and const in JavaScript, covering scope, hoisting, and the temporal dead zone.",
-            "answer_outline": "- var: function‑scoped, hoisted with initial value undefined\n- let: block‑scoped, not initialized until execution, throws ReferenceError in TDZ\n- const: block‑scoped, must be initialized, binding immutable (value may still be mutable)\n- Re‑declaration and re‑assignment rules for each",
-            "difficulty": 2
+            "prompt": "Explain how closures work in JavaScript and give an example where they are useful in managing private state.",
+            "answer_outline": "- Definition of closure (function retaining access to outer lexical environment)\n- How lexical scoping creates closure\n- Example: module pattern or counter function preserving private variable\n- Common pitfalls (memory leaks, unexpected shared references)",
+            "difficulty": 2,
+            "state": "generated"
           },
           {
             "id": "q1-2",
@@ -286,19 +299,21 @@
               "r1"
             ],
             "category": "technical",
-            "prompt": "Describe how the JavaScript event loop processes asynchronous callbacks, and illustrate the execution order when mixing promises and setTimeout.",
-            "answer_outline": "- Call stack executes sync code\n- Microtask queue (promises) runs after current stack before macrotasks\n- Macrotask queue (setTimeout, I/O) runs later\n- Example code showing promise.then before setTimeout callback and the resulting order",
-            "difficulty": 3
+            "prompt": "Describe the JavaScript event loop, differentiating between macro‑tasks and micro‑tasks, and explain how this affects the order of execution for promises and setTimeout callbacks.",
+            "answer_outline": "- Overview of call stack and task queues\n- Macro‑tasks (e.g., setTimeout, I/O) vs micro‑tasks (Promise callbacks, MutationObserver)\n- Execution order: after each macro‑task, drain micro‑task queue before next macro‑task\n- Example illustrating promise then vs setTimeout order\n- Implications for performance and race conditions",
+            "difficulty": 3,
+            "state": "generated"
           }
         ],
         "flashcards": [
           {
             "id": "f1",
-            "front": "What is JavaScript?",
-            "back": "JavaScript is a high-level, interpreted scripting language used primarily for adding interactivity to web pages.",
+            "front": "What are the primary data types in JavaScript?",
+            "back": "JavaScript has primitive types (Number, String, Boolean, Null, Undefined, Symbol, BigInt) and the Object type for collections and functions.",
             "requirement_ids": [
               "r1"
-            ]
+            ],
+            "state": "generated"
           }
         ],
         "schedule": {
@@ -348,7 +363,7 @@
           "role": "Frontend Engineer",
           "location": "",
           "jd_chars": 58,
-          "researched_at": "2026-09-23T09:58:40.221Z",
+          "researched_at": "2026-09-23T10:20:07.856Z",
           "pages_used": []
         },
         "company_brief": {
@@ -358,12 +373,12 @@
         },
         "role": {
           "title": "Frontend Engineer",
-          "seniority": "",
+          "seniority": "Mid",
           "responsibilities": [],
           "requirements": [
             {
               "id": "r1",
-              "text": "3+ years of React experience",
+              "text": "3+ years React experience",
               "kind": "technical",
               "priority": "must"
             }
@@ -376,9 +391,10 @@
               "r1"
             ],
             "category": "technical",
-            "prompt": "You notice a React component re‑renders far more often than expected, causing UI lag. How would you diagnose the cause and which techniques would you use to eliminate unnecessary renders?",
-            "answer_outline": "- Use React DevTools Profiler to spot frequent renders\n- Inspect props and state changes to identify why component updates\n- Apply memoization: React.memo for functional components, PureComponent or shouldComponentUpdate for class components\n- Use useCallback and useMemo to stabilize function and value references passed as props\n- Leverage key proper usage and avoid inline object/array literals\n- Consider list virtualization (e.g., react-window) for large lists\n- Split code with lazy loading and dynamic import if appropriate",
-            "difficulty": 2
+            "prompt": "Explain how you would implement a performant infinite‑scroll list in React for a dataset of tens of thousands of items, focusing on minimizing re‑renders and memory usage.",
+            "answer_outline": "- Use windowing/virtualization (e.g., react-window or react-virtualized) to render only visible rows\n- Leverage IntersectionObserver or scroll event throttling to detect when to load more data\n- Keep item data in a stable store (e.g., Redux, Context) and memoize list items with React.memo\n- Use stable keys and avoid inline functions/objects (useCallback, useMemo)\n- Handle loading state and error handling gracefully\n- Clean up listeners in useEffect",
+            "difficulty": 2,
+            "state": "generated"
           },
           {
             "id": "q1-2",
@@ -386,19 +402,21 @@
               "r1"
             ],
             "category": "technical",
-            "prompt": "Design a reusable custom hook for data fetching that works with React Suspense, handling loading, error, and caching. What are the key implementation steps and current limitations of this approach?",
-            "answer_outline": "- Create a cache (Map) keyed by request identifier\n- Hook returns a resource object that throws a promise on first call (to trigger Suspense) and throws error on failure\n- Use useEffect for background refetching or cache invalidation\n- Provide read() method that either returns data or throws promise/error\n- Wrap component tree with <Suspense fallback=…> and optional <ErrorBoundary>\n- Discuss limitations: Suspense for data fetching is still experimental, not fully supported in SSR, requires concurrent mode, cache eviction strategy needed, debugging complexity",
-            "difficulty": 3
+            "prompt": "Describe the differences between controlled and uncontrolled components in React, and provide a concrete scenario where you would prefer one over the other, including how you would implement form validation in that scenario.",
+            "answer_outline": "- Definition: controlled components store value in React state; uncontrolled use DOM refs\n- Pros/cons: predictability vs simplicity, performance considerations\n- Example: controlled for complex validation, dynamic enable/disable; uncontrolled for simple, non‑interactive forms\n- Show code snippets for each approach\n- Explain validation: controlled → validate on change/blur in state; uncontrolled → use ref and HTML5 validation or custom check on submit\n- Decision rationale based on form complexity and performance",
+            "difficulty": 2,
+            "state": "generated"
           }
         ],
         "flashcards": [
           {
             "id": "f1",
-            "front": "What core concepts should a developer with 3+ years of React experience be proficient in?",
-            "back": "Component lifecycle, hooks (useState, useEffect, custom hooks), state management (Context, Redux), performance optimization, routing, testing, and TypeScript integration.",
+            "front": "What core React concepts and skills are expected from a developer with 3+ years of experience?",
+            "back": "Proficiency with functional components, hooks (useState, useEffect, custom hooks), state management (Context API, Redux), component lifecycle, performance optimization (memo, lazy loading), routing, testing (Jest/React Testing Library), and TypeScript integration.",
             "requirement_ids": [
               "r1"
-            ]
+            ],
+            "state": "generated"
           }
         ],
         "schedule": {
@@ -408,15 +426,15 @@
               "day": 1,
               "focus": "Technical deep dive",
               "question_ids": [
-                "q1-2"
+                "q1-1"
               ],
-              "minutes": 40
+              "minutes": 25
             },
             {
               "day": 2,
               "focus": "Technical deep dive",
               "question_ids": [
-                "q1-1"
+                "q1-2"
               ],
               "minutes": 25
             },
@@ -424,8 +442,8 @@
               "day": 3,
               "focus": "Review & practice",
               "question_ids": [
-                "q1-2",
-                "q1-1"
+                "q1-1",
+                "q1-2"
               ],
               "minutes": 30
             },
@@ -433,8 +451,8 @@
               "day": 4,
               "focus": "Review & practice",
               "question_ids": [
-                "q1-2",
-                "q1-1"
+                "q1-1",
+                "q1-2"
               ],
               "minutes": 30
             },
@@ -442,8 +460,8 @@
               "day": 5,
               "focus": "Review & practice",
               "question_ids": [
-                "q1-2",
-                "q1-1"
+                "q1-1",
+                "q1-2"
               ],
               "minutes": 30
             },
@@ -451,8 +469,8 @@
               "day": 6,
               "focus": "Review & practice",
               "question_ids": [
-                "q1-2",
-                "q1-1"
+                "q1-1",
+                "q1-2"
               ],
               "minutes": 30
             },
@@ -460,8 +478,8 @@
               "day": 7,
               "focus": "Review & practice",
               "question_ids": [
-                "q1-2",
-                "q1-1"
+                "q1-1",
+                "q1-2"
               ],
               "minutes": 30
             }
