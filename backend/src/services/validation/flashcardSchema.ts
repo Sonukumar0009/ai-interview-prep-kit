@@ -1,10 +1,12 @@
 import { z } from "zod";
+import { itemStateSchema } from "./questionSchema";
 
 export const flashcardSchema = z.object({
   id: z.string().min(1),
   front: z.string().min(1),
   back: z.string().min(1),
   requirement_ids: z.array(z.string().min(1)).min(1),
+  state: itemStateSchema.default("generated"),
 });
 
 export const flashcardsGenerationSchema = z.object({

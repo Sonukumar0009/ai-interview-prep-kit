@@ -15,6 +15,7 @@ function q(id: string, requirementIds: string[]): Question {
     prompt: "p",
     answer_outline: "a",
     difficulty: 1,
+    state: "generated",
   };
 }
 

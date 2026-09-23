@@ -28,6 +28,7 @@ async function runGenerationInBackground(kitId: string): Promise<void> {
       kitDoc.status = "completed";
       kitDoc.kit = result.kit;
       kitDoc.warnings = result.warnings;
+      kitDoc.researchCache = result.researchCache || null;
       kitDoc.error = null;
     } else {
       kitDoc.status = "failed";
@@ -37,8 +38,6 @@ async function runGenerationInBackground(kitId: string): Promise<void> {
 
     await kitDoc.save();
   } catch (err) {
-    // Defensive: catch anything unexpected so a thrown error in the
-    // background task doesn't leave the kit stuck in "generating" forever.
     const kitDoc = await Kit.findById(kitId);
     if (kitDoc) {
       kitDoc.status = "failed";
@@ -52,7 +51,7 @@ export async function createKit(req: Request, res: Response): Promise<void> {
   const parsed = createKitSchema.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({
-      error: { code: "VALIDATION_ERROR", message: parsed.error.errors[0].message },
+      error: { code: "VALIDATION_ERROR", message: parsed.error.issues[0].message },
     });
     return;
   }
@@ -61,9 +60,6 @@ export async function createKit(req: Request, res: Response): Promise<void> {
   const userId = req.session.userId!;
   const inputHash = computeInputHash(userId, jobDescription, companyUrl, daysAvailable);
 
-  // Idempotency (Section 10): if this exact input was already submitted by
-  // this user and did not fail, return the existing kit instead of
-  // starting a redundant generation run.
   const existing = await Kit.findOne({ userId, inputHash, status: { $ne: "failed" } });
   if (existing) {
     res.status(200).json({ id: existing._id, status: existing.status, duplicate: true });
@@ -80,8 +76,6 @@ export async function createKit(req: Request, res: Response): Promise<void> {
     error: null,
   });
 
-  // Fire-and-forget: intentionally not awaited so the request returns
-  // immediately with the kit id for the client to poll.
   runGenerationInBackground(kitDoc._id.toString());
 
   res.status(202).json({ id: kitDoc._id, status: kitDoc.status });

@@ -14,6 +14,11 @@ export interface IKit extends Document {
     daysAvailable: number;
   };
   kit: KitData | null;
+  researchCache: {
+    companyName: string;
+    pages: { url: string; title: string; text: string }[];
+    researchContext: string;
+  } | null;
   warnings: string[];
   error: { code: string; message: string } | null;
   createdAt: Date;
@@ -36,6 +41,7 @@ const KitSchema = new Schema<IKit>(
       daysAvailable: { type: Number, required: true },
     },
     kit: { type: Schema.Types.Mixed, default: null },
+    researchCache: { type: Schema.Types.Mixed, default: null },
     warnings: { type: [String], default: [] },
     error: { type: Schema.Types.Mixed, default: null },
   },

@@ -7,7 +7,7 @@ export async function register(req: Request, res: Response): Promise<void> {
   const parsed = registerSchema.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({
-      error: { code: "VALIDATION_ERROR", message: parsed.error.errors[0].message },
+      error: { code: "VALIDATION_ERROR", message: parsed.error.issues[0].message },
     });
     return;
   }
@@ -33,7 +33,7 @@ export async function login(req: Request, res: Response): Promise<void> {
   const parsed = loginSchema.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({
-      error: { code: "VALIDATION_ERROR", message: parsed.error.errors[0].message },
+      error: { code: "VALIDATION_ERROR", message: parsed.error.issues[0].message },
     });
     return;
   }

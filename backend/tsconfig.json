@@ -11,5 +11,6 @@
     "resolveJsonModule": true,
     "moduleResolution": "node"
   },
-  "include": ["src", "scripts"]
+  "include": ["src"],
+  "exclude": ["**/__tests__/**", "**/*.test.ts"]
 }

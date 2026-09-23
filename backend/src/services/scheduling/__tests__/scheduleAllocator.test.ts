@@ -8,7 +8,7 @@ function req(id: string, priority: "must" | "nice" = "must"): Requirement {
 }
 
 function q(id: string, requirementId: string, difficulty: 1 | 2 | 3, category: Question["category"] = "technical"): Question {
-  return { id, requirement_ids: [requirementId], category, prompt: "p", answer_outline: "a", difficulty };
+  return { id, requirement_ids: [requirementId], category, prompt: "p", answer_outline: "a", difficulty, state: "generated" };
 }
 
 describe("buildSchedule", () => {

@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const questionCategorySchema = z.enum(["technical", "behavioural", "system-design", "company-fit"]);
+export const itemStateSchema = z.enum(["generated", "edited", "manual"]);
 
 export const questionSchema = z.object({
   id: z.string().min(1),
@@ -9,6 +10,7 @@ export const questionSchema = z.object({
   prompt: z.string().min(1),
   answer_outline: z.string().min(1),
   difficulty: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+  state: itemStateSchema.default("generated"),
 });
 
 export const questionsGenerationSchema = z.object({
@@ -17,3 +19,4 @@ export const questionsGenerationSchema = z.object({
 
 export type Question = z.infer<typeof questionSchema>;
 export type QuestionCategory = z.infer<typeof questionCategorySchema>;
+export type ItemState = z.infer<typeof itemStateSchema>;

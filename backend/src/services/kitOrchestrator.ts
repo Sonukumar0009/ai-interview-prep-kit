@@ -10,6 +10,11 @@ import { kitSchema, Kit } from "./validation/kitSchema";
 export interface KitGenerationResult {
   ok: boolean;
   kit?: Kit;
+  researchCache?: {
+    companyName: string;
+    pages: { url: string; title: string; text: string }[];
+    researchContext: string;
+  };
   error?: { code: string; message: string };
   warnings: string[]; // non-fatal issues to surface honestly (Section 10)
 }
@@ -53,8 +58,6 @@ export async function generateKit(
   const warnings: string[] = [];
   const researchedAt = new Date().toISOString();
 
-  // --- Retrieval: crawl + discussion search run in parallel (independent
-  // external services, no shared rate-limit risk between them). ---
   const crawlResult = await crawlCompanySite(companyUrl);
   const companyNameGuess = deriveCompanyNameFromCrawl(crawlResult.pages[0]?.title, companyUrl);
   const discussionResult = await searchInterviewDiscussion(companyNameGuess);
@@ -69,7 +72,6 @@ export async function generateKit(
     warnings.push("No public discussion of the interview process was found.");
   }
 
-  // --- Extraction (Groq call #1) ---
   const extraction = await extractRequirements(jobDescription);
   if (!extraction.ok || !extraction.data) {
     return {
@@ -83,7 +85,6 @@ export async function generateKit(
     warnings.push("No requirements could be extracted; the job description may be too thin.");
   }
 
-  // --- Company brief (Groq call, independent of extraction result) ---
   const briefResult = await generateCompanyBrief(crawlResult.pages);
   const companyBrief = briefResult.ok
     ? briefResult.brief!
@@ -94,13 +95,11 @@ export async function generateKit(
 
   const researchContext = buildResearchContext(discussionResult.results, companyBrief.summary);
 
-  // --- Question generation (Groq calls, one per requirement) ---
   const questionGen = await generateQuestionsForRequirements(requirements, researchContext);
   if (questionGen.errors.length > 0) {
     warnings.push(`Question generation failed for ${questionGen.errors.length} requirement(s).`);
   }
 
-  // --- Coverage loop (deterministic check + targeted Groq gap-fill calls) ---
   const coverageOutcome = await runCoverageLoop(requirements, questionGen.questions, researchContext);
   if (coverageOutcome.uncoveredRequirementIds.length > 0) {
     warnings.push(
@@ -108,17 +107,14 @@ export async function generateKit(
     );
   }
 
-  // --- Flashcards (Groq calls, one per requirement) ---
   const flashcardGen = await generateFlashcardsForRequirements(requirements);
   if (flashcardGen.errors.length > 0) {
     warnings.push(`Flashcard generation failed for ${flashcardGen.errors.length} requirement(s).`);
   }
 
-  // --- Scheduling (deterministic, in-process) ---
   const { buildSchedule } = await import("./scheduling/scheduleAllocator");
   const schedule = buildSchedule(requirements, coverageOutcome.questions, daysAvailable);
 
-  // --- Assemble and validate against Appendix A exactly ---
   const candidateKit = {
     source: {
       company: companyNameGuess,
@@ -157,5 +153,14 @@ export async function generateKit(
     };
   }
 
-  return { ok: true, kit: validated.data, warnings };
+  return {
+    ok: true,
+    kit: validated.data,
+    warnings,
+    researchCache: {
+      companyName: companyNameGuess,
+      pages: crawlResult.pages.map((p) => ({ url: p.url, title: p.title, text: p.text })),
+      researchContext,
+    },
+  };
 }
