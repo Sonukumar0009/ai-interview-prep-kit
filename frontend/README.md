@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Interview Prep Kit — Frontend
 
-## Getting Started
+The frontend of **AI Interview Prep Kit** provides the user interface for creating and managing AI-powered interview preparation kits.
 
-First, run the development server:
+## 🚀 Live Demo
+
+**Frontend:** https://ai-interview-prep-kit-three.vercel.app
+
+**Backend:** https://ai-interview-prep-kit-q8u5.onrender.com
+
+**Repository:** https://github.com/Sonukumar0009/ai-interview-prep-kit
+
+---
+
+## ✨ Features
+
+- Create interview preparation kits from a job description and company URL
+- View company information and job requirements
+- View technical and behavioral interview questions
+- Requirement-based question generation
+- Interview flashcards
+- Day-by-day study schedule
+- Question editing, deletion, and reordering
+- Manual question creation
+- Category regeneration
+- Coverage checking and gap filling
+- Confidence-based Practice Mode
+- Async generation status tracking
+
+---
+
+## 🛠️ Tech Stack
+
+- Next.js
+- TypeScript
+- Tailwind CSS
+
+---
+
+## 📁 Project Structure
+
+```text
+frontend/
+├── src/
+│   ├── app/
+│   │   ├── kits/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── globals.css
+│   └── components/
+│       └── Navbar.tsx
+└── ...
+```
+
+---
+
+## ⚡ Backend Integration
+
+The frontend communicates with the deployed backend through:
+
+```env
+NEXT_PUBLIC_API_URL=https://ai-interview-prep-kit-q8u5.onrender.com
+```
+
+For local development:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:4000
+```
+
+---
+
+## 📦 Local Setup
+
+### Prerequisites
+
+- Node.js
+- npm
+
+### Install dependencies
+
+```bash
+cd frontend
+npm install
+```
+
+### Configure environment
+
+Create `.env.local`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:4000
+```
+
+### Run the application
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Frontend will be available at:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🚀 Deployment
 
-To learn more about Next.js, take a look at the following resources:
+The frontend is deployed using **Vercel**.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Production URL:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+https://ai-interview-prep-kit-three.vercel.app
