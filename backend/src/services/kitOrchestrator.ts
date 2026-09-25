@@ -112,7 +112,7 @@ export async function generateKit(
     warnings.push(`Flashcard generation failed for ${flashcardGen.errors.length} requirement(s).`);
   }
 
-  const { buildSchedule } = await import("./scheduling/scheduleAllocator");
+ const { buildSchedule } = await import("./scheduling/scheduleAllocator.js");
   const schedule = buildSchedule(requirements, coverageOutcome.questions, daysAvailable);
 
   const candidateKit = {
