@@ -4,8 +4,15 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import authRoutes from "./routes/authRoutes";
 import kitRoutes from "./routes/kitRoutes";
+
 export function createApp(): Express {
   const app = express();
+
+  const isProduction = process.env.NODE_ENV === "production";
+
+  if (isProduction) {
+    app.set("trust proxy", 1);
+  }
 
   app.use(
     cors({
@@ -13,6 +20,7 @@ export function createApp(): Express {
       credentials: true,
     })
   );
+
   app.use(express.json({ limit: "1mb" }));
 
   app.use(
@@ -27,8 +35,8 @@ export function createApp(): Express {
       cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
       },
     })
   );
@@ -43,7 +51,12 @@ export function createApp(): Express {
   // Error handler must be registered LAST, after all routes
   app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
     console.error(err);
-    res.status(500).json({ error: { code: "INTERNAL_ERROR", message: err.message } });
+    res.status(500).json({
+      error: {
+        code: "INTERNAL_ERROR",
+        message: err.message,
+      },
+    });
   });
 
   return app;
